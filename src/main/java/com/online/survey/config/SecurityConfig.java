@@ -26,15 +26,17 @@ public class SecurityConfig {
 
     RequestMatcher publicUrls =new OrRequestMatcher(
             new AntPathRequestMatcher("/auth/**"),
-            new AntPathRequestMatcher("/users/**")
+            new AntPathRequestMatcher("/users/**"),
+            new AntPathRequestMatcher("/survey/**"),
+            new AntPathRequestMatcher("/creator/**")
     );
     RequestMatcher admiUrls = new OrRequestMatcher(
-            new AntPathRequestMatcher("/admi/"),
-            new AntPathRequestMatcher("/users/**")
+            new AntPathRequestMatcher("/admi/")
+
     );
 
     RequestMatcher creatorUrls = new OrRequestMatcher(
-            new AntPathRequestMatcher("/creator/")
+            new AntPathRequestMatcher("/admi")
     );
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception

@@ -6,15 +6,15 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Collection;
 
 @Entity
-@Table(name = "user", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "user_model", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,9 +30,9 @@ public class UserModel implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role = Role.Surveyed;
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDate createdAt = LocalDate.now();
 
-    public UserModel(String email, String password, String name, String lastName, Boolean deleted, Role role, LocalDateTime createdAt) {
+    public UserModel(String email, String password, String name, String lastName, Boolean deleted, Role role, LocalDate createdAt) {
         this.email = email;
         this.password = password;
         this.username = name;
